@@ -57,6 +57,22 @@ class UpiPayPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegis
     val url: String? = call.argument("url")
     val isForMandate: Boolean? = call.argument("isForMandate")
 
+    // Mandate-specific parameters
+    val amrule: String? = call.argument("amrule")
+    val block: String? = call.argument("block")
+    val mn: String? = call.argument("mn")
+    val mode: String? = call.argument("mode")
+    val orgid: String? = call.argument("orgid")
+    val purpose: String? = call.argument("purpose")
+    val recur: String? = call.argument("recur")
+    val recurtype: String? = call.argument("recurtype")
+    val recurvalue: String? = call.argument("recurvalue")
+    val rev: String? = call.argument("rev")
+    val tid: String? = call.argument("tid")
+    val txnType: String? = call.argument("txnType")
+    val validitystart: String? = call.argument("validitystart")
+    val validityend: String? = call.argument("validityend")
+
     try {
       /*
        * Some UPI apps extract incorrect format VPA due to url encoding of `pa` parameter.
@@ -79,7 +95,56 @@ class UpiPayPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegis
       if(tn != null) {
         uriStr += ("&tn=" + Uri.encode(tn))
       }
-      uriStr += "&mode=00" // &orgid=000000"
+
+      // Add mandate-specific parameters if available
+      if(isForMandate == true) {
+        if(amrule != null) {
+          uriStr += ("&amrule=" + Uri.encode(amrule))
+        }
+        if(block != null) {
+          uriStr += ("&block=" + Uri.encode(block))
+        }
+        if(mn != null) {
+          uriStr += ("&mn=" + Uri.encode(mn))
+        }
+        if(mode != null) {
+          uriStr += ("&mode=" + Uri.encode(mode))
+        }
+        if(orgid != null) {
+          uriStr += ("&orgid=" + Uri.encode(orgid))
+        }
+        if(purpose != null) {
+          uriStr += ("&purpose=" + Uri.encode(purpose))
+        }
+        if(recur != null) {
+          uriStr += ("&recur=" + Uri.encode(recur))
+        }
+        if(recurtype != null) {
+          uriStr += ("&recurtype=" + Uri.encode(recurtype))
+        }
+        if(recurvalue != null) {
+          uriStr += ("&recurvalue=" + Uri.encode(recurvalue))
+        }
+        if(rev != null) {
+          uriStr += ("&rev=" + Uri.encode(rev))
+        }
+        if(tid != null) {
+          uriStr += ("&tid=" + Uri.encode(tid))
+        }
+        if(txnType != null) {
+          uriStr += ("&txnType=" + Uri.encode(txnType))
+        }
+        if(validitystart != null) {
+          uriStr += ("&validitystart=" + Uri.encode(validitystart))
+        }
+        if(validityend != null) {
+          uriStr += ("&validityend=" + Uri.encode(validityend))
+        }
+      } else {
+        // For non-mandate transactions, add default mode if not provided
+        uriStr += "&mode=00"
+      }
+
       val uri = Uri.parse(uriStr)
        Log.d("flutter_upi_india", "initiateTransaction URI: " + uri.toString())
 
