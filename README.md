@@ -55,7 +55,14 @@ In `Runner/Info.plist` add or modify the `LSApplicationQueriesSchemes` key so it
 #### Get list of installed apps
 
 ```dart
-final List<ApplicationMeta> appMetaList = await UpiPay.getInstalledUpiApps();
+final List<ApplicationMeta> appMetaList = await UpiPay.getInstalledUpiApplications();
+```
+
+Filter for mandate-capable apps:
+
+```dart
+final List<ApplicationMeta> mandateApps =
+    await UpiPay.getInstalledUpiApplications(isForMandateApps: true);
 ```
 
 #### Show an app's details
@@ -96,6 +103,22 @@ Future doUpiTransation(ApplicationMeta appMeta) {
 }
 ```
 
+Send a mandate request (uses `upi://mandate`):
+
+```dart
+Future doUpiMandate(ApplicationMeta appMeta) {
+  return UpiPay.initiateTransaction(
+    amount: '100.00',
+    app: appMeta.application,
+    receiverName: 'John Doe',
+    receiverUpiAddress: 'john@doe',
+    transactionRef: 'UPIMANDATE0001',
+    transactionNote: 'UPI Mandate',
+    isForMandate: true,
+  );
+}
+```
+
 ## Behaviour, Limitations & Measures
 
 ### Android
@@ -116,7 +139,7 @@ It is advised that you implement a server-side payment verification on top of th
 #### Flow
 
 - On iOS, the [UPI Deep Linking And Proximity Integration Specification](https://github.com/reeteshranjan/upi_pay/files/6338127/UPI.Linking.Specs_ver.1.6.pdf) is implemented using iOS custom schemes.
-- Each UPI payment app can listen to a payment request of the form `upi://pay?...` sent by a caller app to iOS.
+- Each UPI payment app can listen to a payment request of the form `upi://pay?...` or `upi://mandate?...` sent by a caller app to iOS.
 - The specification does not let you specify the target app's identifier in this request. On iOS, there is no other disambiguation measure available such as any ordering of the UPI payment apps that can be retrieved using any iOS APIs. Hence, it's impossible to know which UPI payment app will be invoked.
 - One of the applicable apps gets invoked and it processes the payment. The custom schemes mechanism has no way to return a transaction status to your calling code. The calling code can only know if a UPI payment app was launched successfully or not.
 

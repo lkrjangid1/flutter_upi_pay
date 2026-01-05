@@ -40,7 +40,7 @@ class UpiPayPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegis
 
     when (call.method) {
       "initiateTransaction" -> this.initiateTransaction(call)
-      "getInstalledUpiApps" -> this.getInstalledUpiApps()
+      "getInstalledUpiApps" -> this.getInstalledUpiApps(call)
       else -> result.notImplemented()
     }
   }
@@ -55,6 +55,7 @@ class UpiPayPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegis
     val am: String? = call.argument("am")
     val cu: String? = call.argument("cu")
     val url: String? = call.argument("url")
+    val isForMandate: Boolean? = call.argument("isForMandate")
 
     try {
       /*
@@ -63,7 +64,8 @@ class UpiPayPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegis
        * 'abc 40upi' by these apps. The URI building logic is changed to avoid URL encoding
        * of the value of 'pa' parameter. - Prince
       */
-      var uriStr: String? = "upi://pay?pa=" + pa +
+      val authority = if (isForMandate == true) "mandate" else "pay"
+      var uriStr: String? = "upi://$authority?pa=" + pa +
               "&pn=" + Uri.encode(pn) +
               "&tr=" + Uri.encode(tr) +
               "&am=" + Uri.encode(am) +
@@ -97,9 +99,14 @@ class UpiPayPlugin: FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegis
     }
   }
 
-  private fun getInstalledUpiApps() {
+  private fun getInstalledUpiApps(call: MethodCall) {
+    val isForMandateApps: Boolean? = call.argument("isForMandateApps")
     val uriBuilder = Uri.Builder()
-    uriBuilder.scheme("upi").authority("pay")
+    if(isForMandateApps == true){
+      uriBuilder.scheme("upi").authority("mandate")
+    } else {
+      uriBuilder.scheme("upi").authority("pay")
+    }
 
     val uri = uriBuilder.build()
     val intent = Intent(Intent.ACTION_VIEW, uri)

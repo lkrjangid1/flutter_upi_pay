@@ -15,6 +15,7 @@ class TransactionDetails {
   final String? url;
   final String? merchantCode;
   final String? transactionNote;
+  final bool isForMandate;
 
   TransactionDetails({
     required this.upiApplication,
@@ -26,6 +27,7 @@ class TransactionDetails {
     this.url,
     this.merchantCode = '',
     this.transactionNote = 'UPI Transaction',
+    this.isForMandate = false,
   }) : amount = Decimal.parse(amount) {
     if (!_checkIfUpiAddressIsValid(payeeAddress)) {
       throw InvalidUpiAddressException();
@@ -56,11 +58,13 @@ class TransactionDetails {
       'url': url,
       'mc': merchantCode,
       'tn': transactionNote,
+      'isForMandate': isForMandate,
     };
   }
 
   String toString() {
-    String uri = 'upi://pay?pa=$payeeAddress'
+    final authority = isForMandate ? 'mandate' : 'pay';
+    String uri = 'upi://$authority?pa=$payeeAddress'
         '&pn=${Uri.encodeComponent(payeeName)}'
         '&tr=$transactionRef'
         '&tn=${Uri.encodeComponent(transactionNote!)}'

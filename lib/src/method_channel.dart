@@ -28,19 +28,25 @@ class UpiMethodChannel {
     throw UnsupportedError('The `launch` call is supported only on iOS');
   }
 
-  Future<List<Map<dynamic, dynamic>>?> getInstalledUpiApps() async {
+  Future<List<Map<dynamic, dynamic>>?> getInstalledUpiApps({
+    bool isForMandateApps = false,
+  }) async {
     if (io.Platform.isAndroid) {
       return await _channel
-          .invokeListMethod<Map<dynamic, dynamic>>('getInstalledUpiApps');
+          .invokeListMethod<Map<dynamic, dynamic>>('getInstalledUpiApps', {
+        'isForMandateApps': isForMandateApps,
+      });
     }
     throw UnsupportedError('The `getInstalledUpiApps` call is supported only '
         'on Android');
   }
 
-  Future<bool?> canLaunch(String scheme) async {
+  Future<bool?> canLaunch(String uriOrScheme) async {
     if (io.Platform.isIOS) {
-      return await _channel
-          .invokeMethod<bool>('canLaunch', {'uri': scheme + "://"});
+      final uri = uriOrScheme.contains('://')
+          ? uriOrScheme
+          : uriOrScheme + '://';
+      return await _channel.invokeMethod<bool>('canLaunch', {'uri': uri});
     }
     throw UnsupportedError('The `canLaunch` call is supported only on iOS');
   }

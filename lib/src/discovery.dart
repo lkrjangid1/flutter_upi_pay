@@ -26,6 +26,7 @@ class UpiApplicationDiscovery implements _PlatformDiscoveryBase {
         UpiApplicationDiscoveryAppPaymentType.nonMerchant,
     UpiApplicationDiscoveryAppStatusType statusType =
         UpiApplicationDiscoveryAppStatusType.working,
+    bool isForMandateApps = false,
   }) async {
     if (io.Platform.isAndroid || io.Platform.isIOS) {
       return await discovery!.discover(
@@ -33,6 +34,7 @@ class UpiApplicationDiscovery implements _PlatformDiscoveryBase {
         applicationStatusMap: applicationStatusMap,
         paymentType: paymentType,
         statusType: statusType,
+        isForMandateApps: isForMandateApps,
       );
     }
     throw UnsupportedError('Discovery is available only on Android and iOS');
@@ -54,8 +56,11 @@ class _AndroidDiscovery implements _PlatformDiscoveryBase {
         UpiApplicationDiscoveryAppPaymentType.nonMerchant,
     UpiApplicationDiscoveryAppStatusType statusType =
         UpiApplicationDiscoveryAppStatusType.working,
+    bool isForMandateApps = false,
   }) async {
-    final appsList = await upiMethodChannel.getInstalledUpiApps();
+    final appsList = await upiMethodChannel.getInstalledUpiApps(
+      isForMandateApps: isForMandateApps,
+    );
     if (appsList == null) return [];
     final List<ApplicationMeta> retList = [];
     appsList.forEach((app) {
@@ -127,7 +132,15 @@ class _IosDiscovery implements _PlatformDiscoveryBase {
         UpiApplicationDiscoveryAppPaymentType.nonMerchant,
     UpiApplicationDiscoveryAppStatusType statusType =
         UpiApplicationDiscoveryAppStatusType.working,
+    bool isForMandateApps = false,
   }) async {
+    if (isForMandateApps) {
+      final bool? supportsMandate =
+          await upiMethodChannel.canLaunch('upi://mandate');
+      if (supportsMandate != true) {
+        return [];
+      }
+    }
     Map<String, UpiApplication> discoveryMap = {};
     List<UpiApplication> discovered = [];
     applicationStatusMap.forEach((app, status) {
@@ -203,6 +216,7 @@ abstract class _PlatformDiscoveryBase {
         UpiApplicationDiscoveryAppPaymentType.nonMerchant,
     UpiApplicationDiscoveryAppStatusType statusType =
         UpiApplicationDiscoveryAppStatusType.working,
+    bool isForMandateApps = false,
   });
 }
 

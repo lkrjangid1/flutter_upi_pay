@@ -52,6 +52,8 @@ class UpiPay {
   /// [UPI Linking Specification](https://www.npci.org.in/sites/default/files/UPI%20Linking%20Specs_ver%201.6.pdf).
   ///
   /// [url]: See `url` parameter in [UPI Linking Specification](https://www.npci.org.in/sites/default/files/UPI%20Linking%20Specs_ver%201.6.pdf)
+  ///
+  /// [isForMandate] switches the request to use the `upi://mandate` authority.
   static Future<UpiTransactionResponse> initiateTransaction({
     required UpiApplication app,
     required String receiverUpiAddress,
@@ -61,6 +63,7 @@ class UpiPay {
     String? url,
     String? merchantCode,
     String? transactionNote,
+    bool isForMandate = false,
   }) async {
     final transactionDetails = TransactionDetails(
       upiApplication: app,
@@ -71,6 +74,7 @@ class UpiPay {
       url: url,
       merchantCode: merchantCode,
       transactionNote: transactionNote,
+      isForMandate: isForMandate,
     );
     return await _transactionHelper.transact(_channel, transactionDetails);
   }
@@ -94,11 +98,15 @@ class UpiPay {
   ///
   /// [paymentType] must be [UpiApplicationDiscoveryAppPaymentType.nonMerchant]
   /// for now. Setting it to any other value will lead to [UnsupportedError].
+  ///
+  /// [isForMandateApps] filters apps that advertise UPI mandate support where
+  /// platform discovery supports it.
   static Future<List<ApplicationMeta>> getInstalledUpiApplications({
     UpiApplicationDiscoveryAppPaymentType paymentType =
         UpiApplicationDiscoveryAppPaymentType.nonMerchant,
     UpiApplicationDiscoveryAppStatusType statusType =
         UpiApplicationDiscoveryAppStatusType.working,
+    bool isForMandateApps = false,
   }) async {
     if (paymentType != UpiApplicationDiscoveryAppPaymentType.nonMerchant) {
       throw UnsupportedError('The parameter `paymentType` must be '
@@ -112,6 +120,7 @@ class UpiPay {
       applicationStatusMap: _upiApplicationStatuses,
       paymentType: paymentType,
       statusType: statusType,
+      isForMandateApps: isForMandateApps,
     );
   }
 
