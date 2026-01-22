@@ -119,6 +119,45 @@ Future doUpiMandate(ApplicationMeta appMeta) {
 }
 ```
 
+#### Mandate parameters
+
+Mandate requests can include additional parameters when `isForMandate: true`.
+Only non-null values are sent to the UPI app.
+
+```dart
+Future doUpiMandateWithParams(ApplicationMeta appMeta) {
+  return UpiPay.initiateTransaction(
+    amount: '250.00',
+    app: appMeta.application,
+    receiverName: 'Acme Subscriptions',
+    receiverUpiAddress: 'acme@upi',
+    transactionRef: 'UPIMANDATE0002',
+    transactionNote: 'Monthly plan',
+    isForMandate: true,
+    // Mandate-specific parameters
+    amountRule: 'MAX', // amrule
+    blockFlag: 'Y', // block
+    merchantName: 'ACME', // mn
+    mode: 'UPI', // mode
+    orgId: 'ACME001', // orgid
+    purpose: '00', // purpose
+    recurrence: 'MONTHLY', // recur
+    recurrenceType: 'BEFORE', // recurtype
+    recurrenceValue: '1', // recurvalue
+    revocable: 'Y', // rev
+    transactionId: 'TID12345', // tid
+    txnType: 'CREATE', // txnType
+    validityStart: '01012025', // validitystart
+    validityEnd: '31122025', // validityend
+  );
+}
+```
+
+Mandate-capable apps can be filtered via
+`UpiPay.getInstalledUpiApplications(isForMandateApps: true)`. Availability
+varies by app and platform, so verify with the target UPI app before production
+use.
+
 ## Behaviour, Limitations & Measures
 
 ### Android

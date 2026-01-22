@@ -61,7 +61,8 @@
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../flutter_upi_india/ApplicationMeta-class.html">ApplicationMeta</a></span>&gt;</span></span>&gt;</span></span>
 <span class="name ">getInstalledUpiApplications</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="getInstalledUpiApplications-param-paymentType">{<span class="type-annotation"><a href="../../flutter_upi_india/UpiApplicationDiscoveryAppPaymentType.html">UpiApplicationDiscoveryAppPaymentType</a></span> <span class="parameter-name">paymentType</span> = <span class="default-value">UpiApplicationDiscoveryAppPaymentType.nonMerchant</span>, </span></li>
-<li><span class="parameter" id="getInstalledUpiApplications-param-statusType"><span class="type-annotation"><a href="../../flutter_upi_india/UpiApplicationDiscoveryAppStatusType.html">UpiApplicationDiscoveryAppStatusType</a></span> <span class="parameter-name">statusType</span> = <span class="default-value">UpiApplicationDiscoveryAppStatusType.working</span>}</span></li>
+<li><span class="parameter" id="getInstalledUpiApplications-param-statusType"><span class="type-annotation"><a href="../../flutter_upi_india/UpiApplicationDiscoveryAppStatusType.html">UpiApplicationDiscoveryAppStatusType</a></span> <span class="parameter-name">statusType</span> = <span class="default-value">UpiApplicationDiscoveryAppStatusType.working</span>, </span></li>
+<li><span class="parameter" id="getInstalledUpiApplications-param-isForMandateApps"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isForMandateApps</span> = <span class="default-value">false</span>}</span></li>
 </ol>)
 
       
@@ -85,6 +86,8 @@ the apps. UPI researchers can use this value to experiment with the
 UPI apps this package can detect.</p>
 <p><code>paymentType</code> must be <a href="../../flutter_upi_india/UpiApplicationDiscoveryAppPaymentType.html">UpiApplicationDiscoveryAppPaymentType.nonMerchant</a>
 for now. Setting it to any other value will lead to <a href="https://api.flutter.dev/flutter/dart-core/UnsupportedError-class.html">UnsupportedError</a>.</p>
+<p><code>isForMandateApps</code> filters apps that advertise UPI mandate support where
+platform discovery supports it.</p>
 </section>
 
 
@@ -96,6 +99,7 @@ for now. Setting it to any other value will lead to <a href="https://api.flutter
       UpiApplicationDiscoveryAppPaymentType.nonMerchant,
   UpiApplicationDiscoveryAppStatusType statusType =
       UpiApplicationDiscoveryAppStatusType.working,
+  bool isForMandateApps = false,
 }) async {
   if (paymentType != UpiApplicationDiscoveryAppPaymentType.nonMerchant) {
     throw UnsupportedError(&#39;The parameter `paymentType` must be &#39;
@@ -109,6 +113,7 @@ for now. Setting it to any other value will lead to <a href="https://api.flutter
     applicationStatusMap: _upiApplicationStatuses,
     paymentType: paymentType,
     statusType: statusType,
+    isForMandateApps: isForMandateApps,
   );
 }</code></pre>
 </section>
@@ -185,4 +190,3 @@ for now. Setting it to any other value will lead to <a href="https://api.flutter
 </body>
 
 </html>
-

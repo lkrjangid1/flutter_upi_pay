@@ -66,7 +66,23 @@
 <li><span class="parameter" id="initiateTransaction-param-transactionRef"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">transactionRef</span>, </span></li>
 <li><span class="parameter" id="initiateTransaction-param-amount"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">amount</span>, </span></li>
 <li><span class="parameter" id="initiateTransaction-param-url"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">url</span>, </span></li>
-<li><span class="parameter" id="initiateTransaction-param-transactionNote"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">transactionNote</span>}</span></li>
+<li><span class="parameter" id="initiateTransaction-param-merchantCode"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">merchantCode</span>, </span></li>
+<li><span class="parameter" id="initiateTransaction-param-transactionNote"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">transactionNote</span>, </span></li>
+<li><span class="parameter" id="initiateTransaction-param-isForMandate"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isForMandate</span> = <span class="default-value">false</span>, </span></li>
+<li><span class="parameter" id="initiateTransaction-param-amountRule"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">amountRule</span>, </span></li>
+<li><span class="parameter" id="initiateTransaction-param-blockFlag"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">blockFlag</span>, </span></li>
+<li><span class="parameter" id="initiateTransaction-param-merchantName"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">merchantName</span>, </span></li>
+<li><span class="parameter" id="initiateTransaction-param-mode"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">mode</span>, </span></li>
+<li><span class="parameter" id="initiateTransaction-param-orgId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">orgId</span>, </span></li>
+<li><span class="parameter" id="initiateTransaction-param-purpose"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">purpose</span>, </span></li>
+<li><span class="parameter" id="initiateTransaction-param-recurrence"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">recurrence</span>, </span></li>
+<li><span class="parameter" id="initiateTransaction-param-recurrenceType"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">recurrenceType</span>, </span></li>
+<li><span class="parameter" id="initiateTransaction-param-recurrenceValue"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">recurrenceValue</span>, </span></li>
+<li><span class="parameter" id="initiateTransaction-param-revocable"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">revocable</span>, </span></li>
+<li><span class="parameter" id="initiateTransaction-param-transactionId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">transactionId</span>, </span></li>
+<li><span class="parameter" id="initiateTransaction-param-txnType"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">txnType</span>, </span></li>
+<li><span class="parameter" id="initiateTransaction-param-validityStart"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">validityStart</span>, </span></li>
+<li><span class="parameter" id="initiateTransaction-param-validityEnd"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">validityEnd</span>}</span></li>
 </ol>)
 
       
@@ -96,6 +112,25 @@ control towards ensuring payment. See <code>am</code> in <a href="https://www.np
 <p><code>transactionNote</code> is a short description of the transaction. See <code>tn</code> in
 <a href="https://www.npci.org.in/sites/default/files/UPI%20Linking%20Specs_ver%201.6.pdf">UPI Linking Specification</a>.</p>
 <p><code>url</code>: See <code>url</code> parameter in <a href="https://www.npci.org.in/sites/default/files/UPI%20Linking%20Specs_ver%201.6.pdf">UPI Linking Specification</a></p>
+<p><code>merchantCode</code>: See <code>mc</code> parameter in <a href="https://www.npci.org.in/sites/default/files/UPI%20Linking%20Specs_ver%201.6.pdf">UPI Linking Specification</a></p>
+<p><code>isForMandate</code> switches the request to use the <code>upi://mandate</code> authority.</p>
+<p>Mandate-specific parameters:</p>
+<ul>
+<li><code>amountRule</code> - Amount rule (MAX, EXACT, etc.)</li>
+<li><code>blockFlag</code> - Block flag (Y/N)</li>
+<li><code>merchantName</code> - Merchant name or identifier</li>
+<li><code>mode</code> - Payment mode</li>
+<li><code>orgId</code> - Organization ID</li>
+<li><code>purpose</code> - Payment purpose code</li>
+<li><code>recurrence</code> - Recurrence pattern (ASPRESENTED, MONTHLY, etc.)</li>
+<li><code>recurrenceType</code> - Recurrence type (AFTER, BEFORE, etc.)</li>
+<li><code>recurrenceValue</code> - Recurrence value/count</li>
+<li><code>revocable</code> - Revocable flag (Y/N)</li>
+<li><code>transactionId</code> - Transaction ID</li>
+<li><code>txnType</code> - Transaction type (CREATE, REVOKE, etc.)</li>
+<li><code>validityStart</code> - Validity start date (DDMMYYYY)</li>
+<li><code>validityEnd</code> - Validity end date (DDMMYYYY)</li>
+</ul>
 </section>
 
 
@@ -109,7 +144,23 @@ control towards ensuring payment. See <code>am</code> in <a href="https://www.np
   required String transactionRef,
   required String amount,
   String? url,
+  String? merchantCode,
   String? transactionNote,
+  bool isForMandate = false,
+  String? amountRule,
+  String? blockFlag,
+  String? merchantName,
+  String? mode,
+  String? orgId,
+  String? purpose,
+  String? recurrence,
+  String? recurrenceType,
+  String? recurrenceValue,
+  String? revocable,
+  String? transactionId,
+  String? txnType,
+  String? validityStart,
+  String? validityEnd,
 }) async {
   final transactionDetails = TransactionDetails(
     upiApplication: app,
@@ -118,7 +169,23 @@ control towards ensuring payment. See <code>am</code> in <a href="https://www.np
     transactionRef: transactionRef,
     amount: amount,
     url: url,
+    merchantCode: merchantCode,
     transactionNote: transactionNote,
+    isForMandate: isForMandate,
+    amountRule: amountRule,
+    blockFlag: blockFlag,
+    merchantName: merchantName,
+    mode: mode,
+    orgId: orgId,
+    purpose: purpose,
+    recurrence: recurrence,
+    recurrenceType: recurrenceType,
+    recurrenceValue: recurrenceValue,
+    revocable: revocable,
+    transactionId: transactionId,
+    txnType: txnType,
+    validityStart: validityStart,
+    validityEnd: validityEnd,
   );
   return await _transactionHelper.transact(_channel, transactionDetails);
 }</code></pre>
@@ -196,4 +263,3 @@ control towards ensuring payment. See <code>am</code> in <a href="https://www.np
 </body>
 
 </html>
-
