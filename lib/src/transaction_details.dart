@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:decimal/decimal.dart';
 import 'package:flutter_upi_india/src/applications.dart';
 import 'package:flutter_upi_india/src/exceptions.dart';
@@ -111,8 +113,12 @@ class TransactionDetails {
   }
 
   String toString() {
+    String scheme = 'upi';
+    if(Platform.isIOS && (upiApplication.discoveryCustomScheme ?? "").isNotEmpty){
+      scheme = upiApplication.discoveryCustomScheme ?? 'upi';
+    }
     final authority = isForMandate ? 'mandate' : 'pay';
-    String uri = 'upi://$authority?pa=$payeeAddress'
+    String uri = '$scheme://$authority?pa=$payeeAddress'
         '&pn=${Uri.encodeComponent(payeeName)}'
         '&tr=$transactionRef'
         '&tn=${Uri.encodeComponent(transactionNote!)}'

@@ -81,7 +81,7 @@ class UpiApplication {
     androidPackageName: 'in.org.npci.upiapp',
     iosBundleId: 'in.org.npci.ios.upiapp',
     appName: 'BHIM',
-    discoveryCustomScheme: 'BHIM',
+    discoveryCustomScheme: 'bhim',
   );
 
   /// MiPay from Xiomi
@@ -95,7 +95,7 @@ class UpiApplication {
     androidPackageName: 'in.amazon.mShop.android.shopping',
     iosBundleId: 'com.amazon.AmazonIN',
     appName: 'Amazon Pay',
-    discoveryCustomScheme: 'com.amazon.mobile.shopping',
+    discoveryCustomScheme: 'amazonpay',
   );
 
   /// Truecaller
@@ -146,7 +146,7 @@ class UpiApplication {
     androidPackageName: 'com.fisglobal.bandhanupi.app',
     iosBundleId: 'com.bandhan.bandhanupi',
     appName: 'Bandhan UPI',
-    discoveryCustomScheme: 'Bandhan',
+    discoveryCustomScheme: 'bandhan',
   );
 
   /// BHIM BOB Pay (Bank of Baroda's BHIM UPI app)
@@ -168,7 +168,7 @@ class UpiApplication {
     androidPackageName: 'com.infrasofttech.centralbankupi',
     iosBundleId: 'com.centralbank.centupi',
     appName: 'Cent UPI',
-    discoveryCustomScheme: 'CentUPI',
+    discoveryCustomScheme: 'centupi',
   );
 
   /// BHIM CORP UPI (Corporation Bank's BHIM UPI app)
@@ -364,7 +364,7 @@ class UpiApplication {
     androidPackageName: 'com.canarabank.mobility',
     iosBundleId: 'com.canarabank.mobility',
     appName: 'Canara Bank App',
-    discoveryCustomScheme: 'CanaraMobility',
+    discoveryCustomScheme: 'canaramobility',
   );
 
   /// Cointab BHIM UPI payments app
@@ -410,7 +410,7 @@ class UpiApplication {
     androidPackageName: 'com.fampay.in',
     iosBundleId: 'in.fampay.app',
     appName: 'FamPay',
-    discoveryCustomScheme: 'in.fampay.app',
+    discoveryCustomScheme: 'fampay',
   );
 
   /// Freecharge
@@ -448,7 +448,7 @@ class UpiApplication {
     androidPackageName: 'com.citrus.citruspay',
     iosBundleId: 'com.payu.citrusapp',
     appName: 'LazyPay',
-    discoveryCustomScheme: 'www.citruspay.com',
+    discoveryCustomScheme: 'citruspay',
   );
 
   /// MahaUPI (Maharashtra Bank's BHIM UPI app)
@@ -476,7 +476,7 @@ class UpiApplication {
     androidPackageName: 'com.jio.myjio',
     iosBundleId: 'com.jio.myjio',
     appName: 'MyJio',
-    discoveryCustomScheme: 'myJio',
+    discoveryCustomScheme: 'jiopay',
   );
 
   /// OmegaPay BHIM UPI app from Omegaon
@@ -490,7 +490,7 @@ class UpiApplication {
     androidPackageName: 'com.enstage.wibmo.hdfc',
     // iosBundleId: 'com.enstage.Wibmo.hdfc',
     appName: 'PayZapp',
-    // discoveryCustomScheme: 'payzapp',
+    discoveryCustomScheme: 'payzapp',
   );
 
   /// RBL's app for account holders that also includes BHIM UPI transactions for
@@ -499,7 +499,7 @@ class UpiApplication {
     androidPackageName: 'com.rblbank.mobank',
     iosBundleId: 'com.rbl.mobilebankingiphone',
     appName: 'RBL MoBank',
-    discoveryCustomScheme: 'com.rbl.rblimplicitjourney',
+    discoveryCustomScheme: 'rblbank',
   );
 
   /// Realme PaySa BHIM UPI app
