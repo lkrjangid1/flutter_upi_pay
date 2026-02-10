@@ -18,12 +18,14 @@ class ApplicationMeta {
     this._icon,
     this._priority,
     this._preferredOrder,
-  );
+  ) : _iconUrl = null;
 
   /// iOS platform constructor.
   ApplicationMeta.ios(
     this.upiApplication,
+    {String? iconUrl}
   )   : _icon = null,
+        _iconUrl = iconUrl,
         _priority = 0,
         _preferredOrder = 0;
 
@@ -32,11 +34,19 @@ class ApplicationMeta {
   /// [dimension] specifies width and height of the [Image] output.
   ///
   /// On Android, it creates an [Image] widget from the byte-array of the logo.
-  /// On iOS, it creates an [Image] widget from logo stored as part of assets.
+  /// On iOS, it creates an [Image] widget from a remote logo URL.
   Image iconImage(double dimension) {
     if (io.Platform.isAndroid) {
       return Image.memory(_icon!, width: dimension, height: dimension);
     } else if (io.Platform.isIOS) {
+      final iconUrl = _iconUrl;
+      if (iconUrl != null && iconUrl.isNotEmpty) {
+        return Image.network(
+          iconUrl,
+          width: dimension,
+          height: dimension,
+        );
+      }
       return Image.asset(
         'assets/apps/ios/${upiApplication.iosBundleId}.png',
         package: 'flutter_upi_india',
@@ -71,6 +81,9 @@ class ApplicationMeta {
 
   /// The byte-array version of the app's logo (Android-only).
   final Uint8List? _icon;
+
+  /// Remote iOS icon URL resolved from the App Store metadata.
+  final String? _iconUrl;
 
   /// Priority of execution. Provided for API response coverage (Android-only).
   /// Not used as of now.
