@@ -5,7 +5,6 @@ import 'package:flutter_upi_india/src/discovery.dart';
 import 'package:flutter_upi_india/src/meta.dart';
 import 'package:flutter_upi_india/src/method_channel.dart';
 import 'package:flutter_upi_india/src/response.dart';
-import 'package:flutter_upi_india/src/status.dart';
 import 'package:flutter_upi_india/src/applications.dart';
 import 'package:flutter_upi_india/src/exceptions.dart';
 import 'package:flutter_upi_india/src/transaction.dart';
@@ -145,6 +144,9 @@ class UpiPay {
   ///
   /// [isForMandateApps] filters apps that advertise UPI mandate support where
   /// platform discovery supports it.
+  ///
+  /// The [statusType] parameter is kept for backward compatibility but is no
+  /// longer used for filtering — all installed UPI apps are returned.
   static Future<List<ApplicationMeta>> getInstalledUpiApplications({
     UpiApplicationDiscoveryAppPaymentType paymentType =
         UpiApplicationDiscoveryAppPaymentType.nonMerchant,
@@ -156,93 +158,10 @@ class UpiPay {
       throw UnsupportedError('The parameter `paymentType` must be '
           '`UpiApplicationDiscoveryAppPaymentType.nonMerchant`');
     }
-    if (_upiApplicationStatuses.isEmpty) {
-      return [];
-    }
     return await _discovery.discover(
       upiMethodChannel: _channel,
-      applicationStatusMap: _upiApplicationStatuses,
       paymentType: paymentType,
-      statusType: statusType,
       isForMandateApps: isForMandateApps,
     );
   }
-
-  static final Map<UpiApplication, UpiApplicationStatus>
-      _upiApplicationStatuses = {
-    UpiApplication.googlePay: UpiApplicationStatus.googlePay,
-    UpiApplication.phonePe: UpiApplicationStatus.phonePe,
-    UpiApplication.paytm: UpiApplicationStatus.paytm,
-    UpiApplication.sbiPay: UpiApplicationStatus.sbiPay,
-    UpiApplication.iMobile: UpiApplicationStatus.iMobile,
-    UpiApplication.bhim: UpiApplicationStatus.bhim,
-    UpiApplication.miPay: UpiApplicationStatus.miPay,
-    UpiApplication.amazonPay: UpiApplicationStatus.amazonPay,
-    UpiApplication.trueCaller: UpiApplicationStatus.trueCaller,
-    UpiApplication.airtel: UpiApplicationStatus.airtel,
-    UpiApplication.axisPay: UpiApplicationStatus.axisPay,
-    UpiApplication.bhimAllBank: UpiApplicationStatus.bhimAllBank,
-    UpiApplication.bhimAndhraUpi: UpiApplicationStatus.bhimAndhraUpi,
-    UpiApplication.bhimAuPay: UpiApplicationStatus.bhimAuPay,
-    UpiApplication.bhimBandhanUpi: UpiApplicationStatus.bhimBandhanUpi,
-    UpiApplication.bhimBobPay: UpiApplicationStatus.bhimBobPay,
-    UpiApplication.bhimBoiUpi: UpiApplicationStatus.bhimBoiUpi,
-    UpiApplication.bhimCentUpi: UpiApplicationStatus.bhimCentUpi,
-    UpiApplication.bhimCorpUpi: UpiApplicationStatus.bhimCorpUpi,
-    UpiApplication.bhimCsbUpi: UpiApplicationStatus.bhimCsbUpi,
-    UpiApplication.bhimCubUpi: UpiApplicationStatus.bhimCubUpi,
-    UpiApplication.bhimDcbUpi: UpiApplicationStatus.bhimDcbUpi,
-    UpiApplication.bhimDlbUpi: UpiApplicationStatus.bhimDlbUpi,
-    UpiApplication.bhimEquitasUpi: UpiApplicationStatus.bhimEquitasUpi,
-    UpiApplication.bhimIdfcFirstBankUpi:
-        UpiApplicationStatus.bhimIdfcFirstBankUpi,
-    UpiApplication.bhimIndianBankUpi: UpiApplicationStatus.bhimIndianBankUpi,
-    UpiApplication.bhimIndusPayUpi: UpiApplicationStatus.bhimIndusPayUpi,
-    UpiApplication.bhimIobUpi: UpiApplicationStatus.bhimIobUpi,
-    UpiApplication.bhimJetPay: UpiApplicationStatus.bhimJetPay,
-    UpiApplication.bhimJkBankUpi: UpiApplicationStatus.bhimJkBankUpi,
-    UpiApplication.bhimKblUpi: UpiApplicationStatus.bhimKblUpi,
-    UpiApplication.bhimKvbUpay: UpiApplicationStatus.bhimKvbUpay,
-    UpiApplication.bhimLotzaUpi: UpiApplicationStatus.bhimLotzaUpi,
-    UpiApplication.bhimLvbUpaay: UpiApplicationStatus.bhimLvbUpaay,
-    UpiApplication.bhimOrientalPay: UpiApplicationStatus.bhimOrientalPay,
-    UpiApplication.bhimPaywizV2: UpiApplicationStatus.bhimPaywizV2,
-    UpiApplication.bhimPnb: UpiApplicationStatus.bhimPnb,
-    UpiApplication.bhimPsb: UpiApplicationStatus.bhimPsb,
-    UpiApplication.bhimRblPay: UpiApplicationStatus.bhimRblPay,
-    UpiApplication.bhimSyndUpi: UpiApplicationStatus.bhimSyndUpi,
-    UpiApplication.bhimUcoUpi: UpiApplicationStatus.bhimUcoUpi,
-    UpiApplication.bhimUnitedUpiPay: UpiApplicationStatus.bhimUnitedUpiPay,
-    UpiApplication.bhimVijayaUpi: UpiApplicationStatus.bhimVijayaUpi,
-    UpiApplication.bhimYesPay: UpiApplicationStatus.bhimYesPay,
-    UpiApplication.bPay: UpiApplicationStatus.bPay,
-    UpiApplication.bullet: UpiApplicationStatus.bullet,
-    UpiApplication.canaraBank: UpiApplicationStatus.canaraBank,
-    UpiApplication.cointab: UpiApplicationStatus.cointab,
-    UpiApplication.cred: UpiApplicationStatus.cred,
-    UpiApplication.cubMBankPlus: UpiApplicationStatus.cubMBankPlus,
-    UpiApplication.dakPay: UpiApplicationStatus.dakPay,
-    UpiApplication.digibankDbs: UpiApplicationStatus.digibankDbs,
-    UpiApplication.famPay: UpiApplicationStatus.famPay,
-    UpiApplication.freecharge: UpiApplicationStatus.freecharge,
-    UpiApplication.hdfcMobileBanking: UpiApplicationStatus.hdfcMobileBanking,
-    UpiApplication.hsbcSimplyPay: UpiApplicationStatus.hsbcSimplyPay,
-    UpiApplication.khaaliJeb: UpiApplicationStatus.khaaliJeb,
-    UpiApplication.lazyPay: UpiApplicationStatus.lazyPay,
-    UpiApplication.mahaUpi: UpiApplicationStatus.mahaUpi,
-    UpiApplication.mobikwik: UpiApplicationStatus.mobikwik,
-    UpiApplication.mudraPay: UpiApplicationStatus.mudraPay,
-    UpiApplication.myJio: UpiApplicationStatus.myJio,
-    UpiApplication.omegaPay: UpiApplicationStatus.omegaPay,
-    UpiApplication.payZapp: UpiApplicationStatus.payZapp,
-    UpiApplication.rblMoBank: UpiApplicationStatus.rblMoBank,
-    UpiApplication.realmePaySa: UpiApplicationStatus.realmePaySa,
-    UpiApplication.sibMirrorPlus: UpiApplicationStatus.sibMirrorPlus,
-    UpiApplication.tranzappBhimUpi: UpiApplicationStatus.tranzappBhimUpi,
-    UpiApplication.ultraCash: UpiApplicationStatus.ultracash,
-    UpiApplication.uMobile: UpiApplicationStatus.uMobile,
-    UpiApplication.whatsApp: UpiApplicationStatus.whatsApp,
-    UpiApplication.yesBank: UpiApplicationStatus.yesBank,
-    UpiApplication.yuvaPay: UpiApplicationStatus.yuvaPay,
-  };
 }
