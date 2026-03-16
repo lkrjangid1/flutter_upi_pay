@@ -49,6 +49,9 @@ class _AndroidDiscovery implements _PlatformDiscoveryBase {
         UpiApplicationDiscoveryAppPaymentType.nonMerchant,
     bool isForMandateApps = false,
   }) async {
+    // Accessing UpiApplication.all forces all static app instances to
+    // initialize, which populates UpiApplication.lookUpMap as a side effect.
+    UpiApplication.all;
     final appsList = await upiMethodChannel.getInstalledUpiApps(
       isForMandateApps: isForMandateApps,
     );
@@ -92,6 +95,10 @@ class _IosDiscovery implements _PlatformDiscoveryBase {
         return [];
       }
     }
+
+    // Accessing UpiApplication.all forces all static app instances to
+    // initialize, which populates UpiApplication.lookUpMap as a side effect.
+    UpiApplication.all;
 
     // Build a scheme -> app map for all apps that have a discoveryCustomScheme
     Map<String, UpiApplication> discoveryMap = {};

@@ -563,7 +563,128 @@ class UpiApplication {
     appName: 'Yuva Pay',
   );
 
+  static final lxme = UpiApplication(
+    androidPackageName: 'com.lxme',
+    iosBundleId: 'com.lxme',
+    appName: 'LXME Pay',
+    discoveryCustomScheme: 'lxme',
+  );
+
+  static final simplyPayUpi = UpiApplication(
+    androidPackageName: 'com.mgs.hsbcupi',
+    iosBundleId: 'com.mgs.hsbcupi',
+    appName: 'SimplyPay UPI',
+    discoveryCustomScheme: 'simplypayupi',
+  );
+
+  /// Slice — UPI credit card & bank (Play Store: indwin.c3.shareapp)
+  static final slice = UpiApplication(
+    androidPackageName: 'indwin.c3.shareapp',
+    iosBundleId: 'com.tstudents.iOSApp',
+    appName: 'Slice',
+    discoveryCustomScheme: 'slice-upi',
+  );
+
+  /// Navi — Navi Technologies UPI app (Play Store: com.naviapp)
+  static final navi = UpiApplication(
+    androidPackageName: 'com.naviapp',
+    iosBundleId: 'com.gonavi.app',
+    appName: 'Navi',
+    discoveryCustomScheme: 'navipay',
+  );
+
+  /// Tata Neu — Tata's super app with UPI payments (Play Store: com.tatadigital.tcp)
+  static final tataNeu = UpiApplication(
+    androidPackageName: 'com.tatadigital.tcp',
+    iosBundleId: 'com.tatadigital.tcp',
+    appName: 'Tata Neu',
+    discoveryCustomScheme: 'tatadigital',
+  );
+
+  /// Jupiter — Jupiter Money UPI app
+  static final jupiter = UpiApplication(
+    androidPackageName: 'money.jupiter',
+    iosBundleId: 'money.jupiter',
+    appName: 'Jupiter',
+    discoveryCustomScheme: 'jupiter',
+  );
+
+  /// PostPe — BharatPe's PostPe UPI app (Play Store: com.postpe.app)
+  static final postPe = UpiApplication(
+    androidPackageName: 'com.postpe.app',
+    iosBundleId: 'in.postpe.app',
+    appName: 'PostPe',
+    discoveryCustomScheme: 'postpe',
+  );
+
+  /// Super Money — super.money UPI app by Flipkart (Play Store: money.super.payments)
+  static final superMoney = UpiApplication(
+    androidPackageName: 'money.super.payments',
+    iosBundleId: 'money.super.payments',
+    appName: 'Super Money',
+    discoveryCustomScheme: 'super',
+  );
+
+  /// POP — UPI, Shop & Credit Card by PopTech (Play Store: com.popclub.android)
+  static final pop = UpiApplication(
+    androidPackageName: 'com.popclub.android',
+    iosBundleId: 'com.popclub.popclubapp',
+    appName: 'POP',
+    discoveryCustomScheme: 'popclubapp',
+  );
+
+  /// HDFC Bank InstaAccount — HDFC Bank UPI app (Play Store: com.snapwork.hdfcbank.smartaccountapp)
+  static final hdfcBankNb = UpiApplication(
+    androidPackageName: 'com.snapwork.hdfcbank.smartaccountapp',
+    iosBundleId: 'com.snapwork.hdfcbank.smartaccountapp',
+    appName: 'HDFC Bank',
+    discoveryCustomScheme: 'hdfcbanknb',
+  );
+
+  /// AU 0101 — AU Small Finance Bank digital banking (Play Store: com.ausmallfinancebank.amb)
+  static final auBank = UpiApplication(
+    androidPackageName: 'com.ausmallfinancebank.amb',
+    iosBundleId: 'com.ausmallfinancebank.amb',
+    appName: 'AU 0101',
+    discoveryCustomScheme: 'aunb',
+  );
+
+  /// Kiwi — RuPay Credit Card on UPI (Play Store: in.gokiwi.kiwitpap)
+  static final kiwi = UpiApplication(
+    androidPackageName: 'in.gokiwi.kiwitpap',
+    iosBundleId: 'in.kiwi.kiwitpap',
+    appName: 'Kiwi',
+    discoveryCustomScheme: 'kiwi',
+  );
+
+  /// Magnet — FD Credit Card UPI app by Zet (Play Store: in.magnetapp)
+  static final magnet = UpiApplication(
+    androidPackageName: 'in.magnetapp',
+    appName: 'Magnet',
+    discoveryCustomScheme: 'magnetapp',
+  );
+
   static Map<String, UpiApplication> lookUpMap = {};
+
+  /// All known UPI applications. Accessing this field forces initialization of
+  /// every static app instance, which populates [lookUpMap] as a side effect.
+  static final List<UpiApplication> all = [
+    googlePay, phonePe, paytm, sbiPay, iMobile, bhim, miPay, amazonPay,
+    trueCaller, airtel, axisPay, bhimAllBank, bhimAndhraUpi, bhimAuPay,
+    bhimBandhanUpi, bhimBobPay, bhimBoiUpi, bhimCentUpi, bhimCorpUpi,
+    bhimCsbUpi, bhimCubUpi, bhimDcbUpi, bhimDlbUpi, bhimEquitasUpi,
+    bhimIdfcFirstBankUpi, bhimIndianBankUpi, bhimIndusPayUpi, bhimIobUpi,
+    bhimJetPay, bhimJkBankUpi, bhimKblUpi, bhimKvbUpay, bhimLotzaUpi,
+    bhimLvbUpaay, bhimOrientalPay, bhimPaywizV2, bhimPnb, bhimPsb, bhimRblPay,
+    bhimSyndUpi, bhimUcoUpi, bhimUnitedUpiPay, bhimVijayaUpi, bhimYesPay,
+    bPay, bullet, canaraBank, cointab, cred, cubMBankPlus, dakPay, digibankDbs,
+    famPay, freecharge, hdfcMobileBanking, hsbcSimplyPay, khaaliJeb, lazyPay,
+    mahaUpi, mobikwik, mudraPay, myJio, omegaPay, payZapp, rblMoBank,
+    realmePaySa, sibMirrorPlus, samsungPayMini, tranzappBhimUpi, ultraCash,
+    uMobile, whatsApp, yesBank, yuvaPay, lxme, simplyPayUpi,
+    slice, navi, tataNeu, jupiter, postPe, superMoney, pop, hdfcBankNb,
+    auBank, kiwi, magnet,
+  ];
 
   /// Returns the platform-specific package name.
   String toString() {
